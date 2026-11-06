@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Liga Comebacks Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>La Liga Comebacks: Who Wins After Trailing at Half-Time?</h1>
+  <p class="subtitle">CIS5930 Assignment 2 &ndash; Md Saidur Rahman</p>
+  <p class="question">
+    Real Madrid are famous for comebacks. Is that true in La Liga, and are they really different from other clubs?
+    This dashboard looks at every league match from 1995/96 to now and asks: when a team is losing at half-time,
+    how often does it still win?
+  </p>
+  <div id="summary" class="summary"></div>
+</header>
+
+<div id="error" class="error" hidden></div>
+
+<div class="controls">
+  <label>Club
+    <select id="team-select"></select>
+  </label>
+  <label>Compare with
+    <select id="compare-select"></select>
+  </label>
+  <div>
+    Venue
+    <div class="venue-buttons">
+      <button data-venue="all">All</button>
+      <button data-venue="H">Home</button>
+      <button data-venue="A">Away</button>
+    </div>
+  </div>
+  <button id="reset-btn" class="reset-btn">Reset all</button>
+</div>
+
+<div class="selection-bar">
+  <strong>Current selection:</strong>
+  <span id="selection"></span>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <h2>1. Who comes back?</h2>
+    <div id="scatter-legend" class="legend"></div>
+    <div id="scatter" class="chart"></div>
+    <p class="caption">
+      Each dot is one club in the selected seasons. X axis: how often the club was behind at half-time.
+      Y axis: how often it still won those matches. Bigger dot = more matches played. Dashed lines are the league average.
+      Clubs with fewer than 5 such matches are hidden.
+      <b>Click</b> a dot to select a club, <b>Shift+click</b> to compare.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>2. When did it happen?</h2>
+    <div class="play-bar">
+      <button id="play-btn" class="clear-btn">▶ Play seasons</button>
+      <label>Window
+        <select id="window-size">
+          <option value="1">1 season</option>
+          <option value="3">3 seasons</option>
+          <option value="5" selected>5 seasons</option>
+        </select>
+      </label>
+      <span id="play-label" class="count"></span>
+    </div>
+    <div id="timeline-legend" class="legend"></div>
+    <div id="timeline" class="chart"></div>
+    <p class="caption">
+      Number of matches per season where the club was behind at half-time, coloured by the final result.
+      <b>Drag</b> across the chart to pick a range of seasons (click outside the selection to clear it).
+      The last season is still being played.
+      <b>Play seasons</b> moves a window of seasons forward one season at a time, and all charts follow &ndash;
+      watch the clubs move in chart 1.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>3. Half-time score vs final result</h2>
+    <div id="matrix"></div>
+    <p class="caption">
+      Rows are the situation at half-time, columns are the final result. Each cell shows how many matches
+      and the percentage of that row. Darker = higher share. <b>Click</b> a cell to highlight those matches
+      in chart 2 and the table; click it again to clear.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>4. Match list <span id="match-count" class="count"></span></h2>
+    <div id="table" class="table-box"></div>
+    <p class="caption">
+      The matches behind the current selection, newest first. Scores are from the selected club's point of view.
+    </p>
+  </div>
+</div>
+
+<footer>
+  Data: <a href="https://www.football-data.co.uk/spainm.php">football-data.co.uk</a> &ndash; Spanish La Liga results with
+  half-time scores. 1993/94 and 1994/95 are not used because they have no half-time scores.
+</footer>
+
+<div id="tooltip" class="tooltip" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
